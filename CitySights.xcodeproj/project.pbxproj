@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8643E2FF2DC964F9009E1DB8 /* Exceptions for "CitySights" folder in "CitySights" target */ = {
+		86312BAE2DCA3BC3006E7429 /* Exceptions for "CitySights" folder in "CitySights" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +24,7 @@
 		8643E2F02DC9646B009E1DB8 /* CitySights */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				8643E2FF2DC964F9009E1DB8 /* Exceptions for "CitySights" folder in "CitySights" target */,
+				86312BAE2DCA3BC3006E7429 /* Exceptions for "CitySights" folder in "CitySights" target */,
 			);
 			path = CitySights;
 			sourceTree = "<group>";

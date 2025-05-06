@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    let service = DataService()
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Button("Call the API"){
+            Task{
+                await service.businessSearch()
+            }
         }
         .padding()
-        .onAppear{
-            print(Bundle.main.infoDictionary?["API_KEY"] as? String)
-        }
     }
 }
 
