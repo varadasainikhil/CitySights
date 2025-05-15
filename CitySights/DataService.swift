@@ -18,7 +18,7 @@ struct DataService{
         }
         
         //1. Create URL
-        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?latitude=35.665517&longitude=139.770398&categories=restaurants") else{
+        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?latitude=35.665517&longitude=139.770398&term=restaurants") else{
             print("Invalid URL String")
             return
         }
@@ -34,6 +34,7 @@ struct DataService{
             let (data, response) = try await URLSession.shared.data(for: request)
             
             print(data)
+            print("//////////////////////////")
             print(response)
         }
         catch{
