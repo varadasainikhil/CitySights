@@ -9,13 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     let service = DataService()
+    @State private var businesses = [Business]()
+    @State private var query : String = ""
     var body: some View {
-        Button("Call the API"){
-            Task{
-                await service.businessSearch()
+        VStack{
+            Button("Call the API"){
+                Task{
+                    businesses = await service.businessSearch()
+                }
+            }
+            .padding()
+            
+            List(businesses){business in
+                Text(business.name)
+                
             }
         }
-        .padding()
     }
 }
 

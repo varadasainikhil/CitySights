@@ -11,16 +11,16 @@ struct DataService{
     
     let apiKey = Bundle.main.infoDictionary?["API_KEY"] as? String
     
-    func businessSearch() async{
+    func businessSearch() async -> [Business]{
         //Check if apikey exists
         guard apiKey != nil else{
-            return
+            return [Business]()
         }
         
         //1. Create URL
         guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?latitude=35.665517&longitude=139.770398&term=restaurants") else{
             print("Invalid URL String")
-            return
+            return [Business]()
         }
         
         //2. Create Request
@@ -31,14 +31,17 @@ struct DataService{
         
         //3. Send Request
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, _) = try await URLSession.shared.data(for: request)
+                        
+            // Parsing the JSON
+            let decoder = JSONDecoder()
+            let result = try decoder.decode(BusinessSearch.self, from: data)
             
-            print(data)
-            print("//////////////////////////")
-            print(response)
+            return result.businesses
         }
         catch{
             print("Error fetching data : \(error.localizedDescription)")
         }
+        return [Business]()
     }
 }
