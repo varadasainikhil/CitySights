@@ -14,6 +14,7 @@ struct DataService{
     func businessSearch() async -> [Business]{
         //Check if apikey exists
         guard apiKey != nil else{
+            print("API KEY not found")
             return [Business]()
         }
         
