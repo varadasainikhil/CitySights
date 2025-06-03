@@ -11,6 +11,7 @@ struct ContentView: View {
     let service = DataService()
     @State private var businesses = [Business]()
     @State private var query : String = ""
+    @State var selectedBusiness : Business?
 
     var body: some View {
            VStack {
@@ -46,6 +47,9 @@ struct ContentView: View {
                            }
                            Divider()
                        }
+                       .onTapGesture {
+                           selectedBusiness = b
+                       }
                    }
                    .listRowSeparator(.hidden)
                }
@@ -53,6 +57,9 @@ struct ContentView: View {
            }
            .task {
                businesses = await service.businessSearch()
+           }
+           .sheet(item: $selectedBusiness) { item in
+               BusinessDetailView(business : item)
            }
        }
    }
