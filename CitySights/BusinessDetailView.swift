@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct BusinessDetailView: View {
+    @Environment(BusinessViewModel.self) var viewModel
     
-    var business : Business?
     var body: some View {
         VStack{
             ZStack(alignment: .trailing){
@@ -24,7 +24,7 @@ struct BusinessDetailView: View {
             }
             .frame(height: 164)
             
-            if let isClosed = business?.isClosed{
+            if let isClosed = viewModel.selectedBusiness?.isClosed{
                 ZStack(alignment: .leading){
                     Rectangle()
                         .foregroundStyle(isClosed ? .red : .green)
@@ -39,24 +39,24 @@ struct BusinessDetailView: View {
             
             ScrollView{
                 VStack(alignment : .leading, spacing: 0){
-                    Text(business?.name ?? "")
+                    Text(viewModel.selectedBusiness?.name ?? "")
                         .font(Font.system(size: 21))
                         .bold()
                         .padding(.bottom, 10)
                     
-                    Text("\(business?.location?.address1 ?? ""), \(business?.location?.address2 ?? ""), \(business?.location?.address3 ?? "")")
+                    Text("\(viewModel.selectedBusiness?.location?.address1 ?? ""), \(viewModel.selectedBusiness?.location?.address2 ?? ""), \(viewModel.selectedBusiness?.location?.address3 ?? "")")
 
-                    Text("\(business?.location?.city ?? ""), \(business?.location?.state ?? ""), \(business?.location?.country ?? "") - \(business?.location?.zipCode ?? "") ")
+                    Text("\(viewModel.selectedBusiness?.location?.city ?? ""), \(viewModel.selectedBusiness?.location?.state ?? ""), \(viewModel.selectedBusiness?.location?.country ?? "") - \(viewModel.selectedBusiness?.location?.zipCode ?? "") ")
                         .padding(.bottom, 10)
                     
-                    Image(RatingHelper.roundRatings(unroundedRating: business?.rating ?? 0))
+                    Image(RatingHelper.roundRatings(unroundedRating: viewModel.selectedBusiness?.rating ?? 0))
                         .padding(.bottom, 16)
                     
                     Divider()
                     
                     HStack{
                         Image(systemName: "phone")
-                        Text(business?.phone ?? "")
+                        Text(viewModel.selectedBusiness?.phone ?? "")
                         Spacer()
                         Image(systemName: "arrow.right")
                     }
@@ -67,7 +67,7 @@ struct BusinessDetailView: View {
                     
                     HStack{
                         Image(systemName: "globe")
-                        Text(business?.url ?? "")
+                        Text(viewModel.selectedBusiness?.url ?? "")
                             .lineLimit(1)
                         Spacer()
                         Image(systemName: "arrow.right")
@@ -79,7 +79,7 @@ struct BusinessDetailView: View {
                     
                     HStack{
                         Image(systemName: "bubble.left.and.bubble.right")
-                        Text("\(business?.reviewCount ?? 0) reviews")
+                        Text("\(viewModel.selectedBusiness?.reviewCount ?? 0) reviews")
                         Spacer()
                         Image(systemName: "arrow.right")
                     }
