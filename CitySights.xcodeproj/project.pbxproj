@@ -14,6 +14,7 @@
 		86312BAE2DCA3BC3006E7429 /* Exceptions for "CitySights" folder in "CitySights" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Config.xcconfig,
 				Info.plist,
 			);
 			target = 8643E2ED2DC9646B009E1DB8 /* CitySights */;
@@ -91,7 +92,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					8643E2ED2DC9646B009E1DB8 = {
 						CreatedOnToolsVersion = 16.3;
