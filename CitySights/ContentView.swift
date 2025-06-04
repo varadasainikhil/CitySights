@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(BusinessViewModel.self) var viewModel
+    @State var selectedTab = 0
+    
     var body: some View {
         @Bindable var viewModel = viewModel
            VStack {
@@ -26,32 +28,24 @@ struct ContentView: View {
                            .cornerRadius(10)
                    }
                }
-               
-               List {
-                   ForEach(viewModel.businesses) { b in
-                       VStack (spacing: 20) {
-                           HStack (spacing: 0) {
-                               Image("list-placeholder-image")
-                                   .padding(.trailing, 16)
-                               VStack (alignment: .leading) {
-                                   Text(b.name)
-                                       .font(Font.system(size: 15))
-                                       .bold()
-                                   
-                                   Text(DistanceHelper.distanceAwayText(meters: b.distance ?? 0))
-                               }
-                               Spacer()
-                               Image(RatingHelper.roundRatings(unroundedRating: b.rating ?? 0))
-                           }
-                           Divider()
-                       }
-                       .onTapGesture {
-                           viewModel.selectedBusiness = b
-                       }
-                   }
-                   .listRowSeparator(.hidden)
+               // Show Picker
+               Picker("", selection: $selectedTab) {
+                   Text("List")
+                       .tag(0)
+                   
+                   Text("Map")
+                       .tag(1)
                }
-               .listStyle(.plain)
+               .pickerStyle(.segmented)
+               
+               // Show map or list
+               
+               if selectedTab == 1 {
+                   MapView()
+               }
+               else{
+                   ListView()
+               }
            }
            .sheet(item: $viewModel.selectedBusiness) { item in
                BusinessDetailView()
@@ -64,4 +58,5 @@ struct ContentView: View {
 
    #Preview {
        ContentView()
+           .environment(BusinessViewModel())
    }
