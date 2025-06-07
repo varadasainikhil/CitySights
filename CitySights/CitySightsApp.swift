@@ -15,12 +15,19 @@ struct CitySightsApp: App {
         WindowGroup {
             ContentView()
                 .environment(businessViewModel)
+                .onAppear{
+                    // If no onboarding is needed, still get location
+                    if needsOnBoarding == false{
+                        businessViewModel.getUserLocation()
+                    }
+                }
                 .fullScreenCover(isPresented: $needsOnBoarding, onDismiss: {
                     needsOnBoarding = false
                 }, content: {
                     OnboardingView()
                         .environment(businessViewModel)
-                })
+                }
+            )
         }
     }
 }
