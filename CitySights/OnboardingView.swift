@@ -9,7 +9,9 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(BusinessViewModel.self) var viewModel
     @State private var currentPage : Int = 0
+    
     var body: some View {
         ZStack{
             if currentPage == 0 {
@@ -28,6 +30,7 @@ struct OnboardingView: View {
                 
                 OnboardingViewDetails(mainText: "Discover your city", subText: "We will show you the best restaurants, venue ", bgColor: Color(red: 139/255, green: 166/255, blue: 65/255)){
                     dismiss()
+                    viewModel.getUserLocation()
                 }
                 .tag(1)
             }

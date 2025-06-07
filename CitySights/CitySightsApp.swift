@@ -19,6 +19,7 @@ struct CitySightsApp: App {
                     needsOnBoarding = false
                 }, content: {
                     OnboardingView()
+                        .environment(businessViewModel)
                 })
         }
     }
