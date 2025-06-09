@@ -31,7 +31,7 @@ class BusinessViewModel : NSObject , CLLocationManagerDelegate{
         }
     }
     
-    func getUserLocation(){
+    func checkAuthorizationAndRequestLocation(){
         //Check if we have permission
         if locationManager.authorizationStatus == .authorizedAlways || locationManager.authorizationStatus == .authorizedWhenInUse{
             currentUserLocation = nil
@@ -61,7 +61,6 @@ class BusinessViewModel : NSObject , CLLocationManagerDelegate{
             // Call Business Search
             getBusinesses()
         }
-        
         manager.stopUpdatingLocation()
     }
 }

@@ -15,8 +15,29 @@ struct ListView: View {
             ForEach(viewModel.businesses) { b in
                 VStack (spacing: 20) {
                     HStack (spacing: 0) {
-                        Image("list-placeholder-image")
-                            .padding(.trailing, 16)
+                        
+                        if b.imageURL != ""{
+                            // Display the image
+                            AsyncImage(url: URL(string: b.imageURL)) { image in
+                                image
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .scaledToFill()
+                                    .clipShape(RoundedRectangle(cornerRadius: 7))
+                                    .padding(.trailing, 16)
+                            } placeholder: {
+                                ProgressView()
+                                    .frame(width: 50, height: 50)
+                            }
+
+                        }
+                        else {
+                            // Show the placeholder image
+                            Image(.listPlaceholder)
+                                .clipShape(RoundedRectangle(cornerRadius: 7))
+                                .padding(.trailing, 16)
+                        }
+                            
                         VStack (alignment: .leading) {
                             Text(b.name)
                                 .font(Font.system(size: 15))

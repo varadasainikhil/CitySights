@@ -18,7 +18,7 @@ struct CitySightsApp: App {
                 .onAppear{
                     // If no onboarding is needed, still get location
                     if needsOnBoarding == false{
-                        businessViewModel.getUserLocation()
+                        businessViewModel.checkAuthorizationAndRequestLocation()
                     }
                 }
                 .fullScreenCover(isPresented: $needsOnBoarding, onDismiss: {

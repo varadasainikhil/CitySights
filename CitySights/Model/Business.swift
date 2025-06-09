@@ -11,7 +11,7 @@ struct Business : Codable, Identifiable{
     
     enum CodingKeys : String, CodingKey{
         case isClosed = "is_closed"
-        case imageURL = "imageUrl"
+        case imageURL = "image_url"
         case reviewCount = "review_count"
         case displayPhone = "display_phone"
         case businessHours = "business_hours"
@@ -31,7 +31,7 @@ struct Business : Codable, Identifiable{
     var id : String?
     var alias : String
     var name : String
-    var imageURL : String?
+    var imageURL : String
     var isClosed : Bool
     var url : String?
     var reviewCount : Int?

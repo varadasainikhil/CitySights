@@ -30,7 +30,7 @@ struct OnboardingView: View {
                 
                 OnboardingViewDetails(mainText: "Discover your city", subText: "We will show you the best restaurants, venue ", bgColor: Color(red: 139/255, green: 166/255, blue: 65/255)){
                     dismiss()
-                    viewModel.getUserLocation()
+                    viewModel.checkAuthorizationAndRequestLocation()
                 }
                 .tag(1)
             }
