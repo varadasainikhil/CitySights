@@ -11,18 +11,42 @@ struct BusinessDetailView: View {
     @Environment(BusinessViewModel.self) var viewModel
     
     var body: some View {
+        let business = viewModel.selectedBusiness
         VStack{
             ZStack(alignment: .trailing){
-                Image(.detailPlaceholder)
-                    .resizable()
-                    
+                if let imageUrl = business?.imageURL, imageUrl != ""{
+                    // Get the image
+                    AsyncImage(url: URL(string: imageUrl)!) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200)
+                            .clipped()
+                            
+                            
+                    } placeholder: {
+                        ProgressView()
+            
+                    }
+
+                }
+                else{
+                    // Place holder image()
+                    Image(.detailPlaceholder)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 200)
+                        .clipped()
+
+                }
+                
                 VStack(spacing: 0){
                     Spacer()
                     Image(.yelpAttribution)
                         .frame(width: 72, height: 36)
                 }
             }
-            .frame(height: 164)
+            .frame(height: 180)
             
             if let isClosed = viewModel.selectedBusiness?.isClosed{
                 ZStack(alignment: .leading){
@@ -32,7 +56,9 @@ struct BusinessDetailView: View {
                     Text(isClosed ? "Closed" : "Open")
                         .padding(.horizontal)
                         .foregroundStyle(.white)
+                        
                 }
+                
                 .frame(height: 36)
                 
             }
@@ -90,6 +116,8 @@ struct BusinessDetailView: View {
                     
                 }
                 .padding()
+                .background(.white)
+                
             }
         }
     }
@@ -97,4 +125,5 @@ struct BusinessDetailView: View {
 
 #Preview {
     BusinessDetailView()
+        .environment(BusinessViewModel())
 }
