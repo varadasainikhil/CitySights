@@ -58,9 +58,7 @@ struct BusinessDetailView: View {
                         .foregroundStyle(.white)
                         
                 }
-                
                 .frame(height: 36)
-                
             }
             
             ScrollView{
