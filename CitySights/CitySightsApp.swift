@@ -17,7 +17,7 @@ struct CitySightsApp: App {
                 .environment(businessViewModel)
                 .onAppear{
                     // If no onboarding is needed, still get location
-                    if needsOnBoarding == false{
+                    if needsOnBoarding == false && businessViewModel.locationAuthStatus == .notDetermined{
                         businessViewModel.checkAuthorizationAndRequestLocation()
                     }
                 }

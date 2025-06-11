@@ -73,6 +73,22 @@ struct ContentView: View {
             }
             .pickerStyle(.segmented)
             
+            if viewModel.locationAuthStatus == .denied{
+                Spacer()
+                Text("Please allow location services for this app to see sights near you.")
+                    .padding()
+                
+                Button{
+                    if let url = URL(string: UIApplication.openSettingsURLString){
+                        UIApplication.shared.open(url)
+                    }
+                } label: {
+                    Text("Open App privacy Settings.")
+                }
+                .buttonStyle(.bordered)
+                Spacer()
+            }
+            
             // Show map or list
             if selectedTab == 1 {
                 MapView()
@@ -90,9 +106,6 @@ struct ContentView: View {
         }
         .sheet(item: $viewModel.selectedBusiness) { item in
             BusinessDetailView()
-        }
-        .onAppear {
-            viewModel.getBusinesses(query: nil, options: nil, category: nil)
         }
     }
     
