@@ -48,7 +48,7 @@ struct BusinessDetailView: View {
             }
             .frame(height: 180)
             
-            if let isClosed = viewModel.selectedBusiness?.isClosed{
+            if let isClosed = business?.isClosed{
                 ZStack(alignment: .leading){
                     Rectangle()
                         .foregroundStyle(isClosed ? .red : .green)
@@ -68,19 +68,25 @@ struct BusinessDetailView: View {
                         .bold()
                         .padding(.bottom, 10)
                     
-                    Text("\(viewModel.selectedBusiness?.location?.address1 ?? ""), \(viewModel.selectedBusiness?.location?.address2 ?? ""), \(viewModel.selectedBusiness?.location?.address3 ?? "")")
+                    Text("\(business?.location?.address1 ?? ""), \(business?.location?.address2 ?? ""), \(business?.location?.address3 ?? "")")
 
-                    Text("\(viewModel.selectedBusiness?.location?.city ?? ""), \(viewModel.selectedBusiness?.location?.state ?? ""), \(viewModel.selectedBusiness?.location?.country ?? "") - \(viewModel.selectedBusiness?.location?.zipCode ?? "") ")
+                    Text("\(business?.location?.city ?? ""), \(viewModel.selectedBusiness?.location?.state ?? ""), \(business?.location?.country ?? "") - \(business?.location?.zipCode ?? "") ")
                         .padding(.bottom, 10)
                     
-                    Image(RatingHelper.roundRatings(unroundedRating: viewModel.selectedBusiness?.rating ?? 0))
+                    Image(RatingHelper.roundRatings(unroundedRating: business?.rating ?? 0))
                         .padding(.bottom, 16)
                     
                     Divider()
                     
                     HStack{
                         Image(systemName: "phone")
-                        Text(viewModel.selectedBusiness?.phone ?? "")
+                        if let url = URL(string: "tel:\(business?.phone ?? "")"){
+                            Link(destination: url) {
+                                Text(business?.phone ?? "")
+                            }
+                        } else{
+                            Text(business?.phone ?? "")
+                        }
                         Spacer()
                         Image(systemName: "arrow.right")
                     }
@@ -91,8 +97,18 @@ struct BusinessDetailView: View {
                     
                     HStack{
                         Image(systemName: "globe")
-                        Text(viewModel.selectedBusiness?.url ?? "")
-                            .lineLimit(1)
+                        
+                        if let url = URL(string: "\(business?.url ?? "" )"){
+                            Link(destination: url) {
+                                Text(business?.url ?? "")
+                                    .lineLimit(1)
+                            }
+                        }
+                        else{
+                            Text(business?.url ?? "")
+                                .lineLimit(1)
+                        }
+                        
                         Spacer()
                         Image(systemName: "arrow.right")
                     }
@@ -104,8 +120,6 @@ struct BusinessDetailView: View {
                     HStack{
                         Image(systemName: "bubble.left.and.bubble.right")
                         Text("\(viewModel.selectedBusiness?.reviewCount ?? 0) reviews")
-                        Spacer()
-                        Image(systemName: "arrow.right")
                     }
                     .padding(.top, 12)
                     
